@@ -15,6 +15,10 @@ public class ShipBase
 
     public int Range { get; set; }
 
+    public int[]? StartCoordinates { get; set; }
+
+    public int[]? EndCoordinates { get; set; }
+
     public static bool operator ==(ShipBase first, ShipBase second)
     {
         return first.GetType().Name == second.GetType().Name
@@ -29,7 +33,14 @@ public class ShipBase
 
     public override bool Equals(object? obj)
     {
-        return this.Equals(obj);
+        if (this.GetType().Name != obj?.GetType().Name)
+        {
+            return false;
+        }
+
+        var ship = (ShipBase)obj;
+        return this.Size == ship.Size
+               && this.Speed == ship.Speed;
     }
 
     public override int GetHashCode()
@@ -44,6 +55,13 @@ public class ShipBase
 
     public override string ToString()
     {
-        return $"{this.Size} cell ship has a speed of {this.Speed} and a range of {this.Range}";
+        var text = $"{this.Size} cell ship has a speed of {this.Speed} and a range of {this.Range}";
+        if (this.StartCoordinates != null && this.EndCoordinates != null)
+        {
+            text += $" and coordinates: [ ( {this.StartCoordinates[0]}; {this.StartCoordinates[1]} ) " +
+                $"( {this.EndCoordinates[0]}; {this.EndCoordinates[1]} ) ]";
+        }
+
+        return text;
     }
 }
