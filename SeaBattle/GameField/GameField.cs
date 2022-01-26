@@ -6,88 +6,96 @@ public class GameField
 {
     public GameField(int size)
     {
-        Field = new object[size, size];
+        size = size % 2 == 0 ? size : size + 1;
+        this.Field = new object[size, size];
     }
+
+    public List<ShipBase>? Ships { get; set; }
 
     private object[,] Field { get; set; }
 
-    public object this[int quadrant, int x, int y]
+    public object this[int quadrant, int moduleX, int moduleY]
     {
         get
         {
-            var coords = ChangeCoord(quadrant, x, y);
-            return Field[coords[0], coords[1]];
+            var coordinates = this.ChangeCoordinates(quadrant, moduleY, moduleX);
+            return this.Field[coordinates[0], coordinates[1]];
         }
+
         set
         {
-            var coords = ChangeCoord(quadrant, x, y);
-            Field[coords[0], coords[1]] = value;
+            var coordinates = this.ChangeCoordinates(quadrant, moduleY, moduleX);
+            this.Field[coordinates[0], coordinates[1]] = value;
         }
     }
 
-    private int[] ChangeCoord(int quadrant, int x, int y)
+    public void GetView()
     {
-        var halfLength = (int) (Math.Sqrt(Field.Length) / 2);
-        switch (quadrant)
+        Console.WriteLine("------------------Game Field-------------------");
+        for (int i = 0; i < this.Field.GetLength(0); i++)
         {
-            case 1:
-                return new[] { halfLength - x, halfLength + y - 1};
-            case 2:
-                return new[] { halfLength - x, halfLength - y};
-            case 3:
-                return new[] {halfLength + x - 1, halfLength - y};
-            case 4:
-                return new[] {halfLength + x - 1, halfLength + y - 1};
+            for (int j = 0; j < this.Field.GetLength(0); j++)
+            {
+                Console.Write((this.Field[i, j] == null) ? "0 " : "1 ");
+            }
+
+            Console.WriteLine();
         }
-        return new int[]{};
+
+        Console.WriteLine("----------------------------------------------");
     }
 
-    public void AddShip(ShipBase ship, int quadrant, int x, int y, bool isHorizontal)
+    public void AddShip(ShipBase ship, int quadrant, int moduleX, int moduleY, bool isHorizontal)
     {
-        var coords = ChangeCoord(quadrant, y, x);
-        if (!CheckIfFit(ship.Size, coords, isHorizontal))
+        var coordinates = this.ChangeCoordinates(quadrant, moduleY, moduleX);
+        if (!this.CheckIfFit(ship.Size, coordinates, isHorizontal))
         {
-            Console.WriteLine("Your ship doesn't fit");
+            Console.WriteLine("moduleYour ship doesn't fit");
             return;
         }
+
         if (isHorizontal)
         {
             for (int i = 0; i < ship.Size; i++)
             {
-                Field[coords[0], coords[1] + i] = ship;
+                this.Field[coordinates[0], coordinates[1] + i] = ship;
             }
         }
         else
         {
             for (int i = 0; i < ship.Size; i++)
             {
-                Field[coords[0] + i, coords[1]] = ship;
+                this.Field[coordinates[0] + i, coordinates[1]] = ship;
             }
         }
     }
 
-    private bool CheckIfFit(int shipSize, int[] coords, bool isHorizontal)
+    private bool CheckIfFit(int shipSize, int[] coordinates, bool isHorizontal)
     {
-        var length = (int) Math.Sqrt(Field.Length);
+        var length = this.Field.GetLength(0);
         if (isHorizontal)
         {
-            return coords[0] < length && coords[0] + shipSize < length;
+            return coordinates[0] < length && coordinates[0] + shipSize < length;
         }
 
         return false;
     }
 
-    public void GetView()
+    private int[] ChangeCoordinates(int quadrant, int moduleX, int moduleY)
     {
-        Console.WriteLine("------------------Game Field-------------------");
-        for (int i = 0; i < Math.Sqrt(Field.Length); i++)
+        var halfLength = this.Field.GetLength(0) / 2;
+        switch (quadrant)
         {
-            for (int j = 0; j < Math.Sqrt(Field.Length); j++)
-            {
-                Console.Write((Field[i, j] == null) ? "0 " : "1 ");
-            }
-            Console.WriteLine();
+            case 1:
+                return new[] { halfLength - moduleX, halfLength + moduleY - 1 };
+            case 2:
+                return new[] { halfLength - moduleX, halfLength - moduleY };
+            case 3:
+                return new[] { halfLength + moduleX - 1, halfLength - moduleY };
+            case 4:
+                return new[] { halfLength + moduleX - 1, halfLength + moduleY - 1 };
         }
-        Console.WriteLine("----------------------------------------------");
+
+        return new int[] { };
     }
 }

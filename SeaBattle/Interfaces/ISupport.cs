@@ -2,5 +2,5 @@
 
 public interface ISupport
 {
-    public void Repair(int quadrant, int x, int y);
+    public void Repair(int quadrant, int moduleX, int moduleY);
 }
