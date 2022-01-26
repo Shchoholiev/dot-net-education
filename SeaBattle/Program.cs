@@ -1,12 +1,6 @@
 ﻿using SeaBattle.GameField;
 using SeaBattle.Ships;
 
-//Console.WriteLine("---------------- Sea Battle ---------------");
-//Console.WriteLine();
-//Console.WriteLine("Enter game field size: ");
-//int size;
-//int.TryParse(Console.ReadLine(), out size);
-
 var field = new GameField(5);
 
 var warShip = new WarShip(4, 10, 2);

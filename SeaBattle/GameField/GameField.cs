@@ -15,23 +15,6 @@ public class GameField
 
     private object[,] Field { get; set; }
 
-    public override string ToString()
-    {
-        this.Sort();
-        var text = $"Field with size {Field.GetLength(0)} has {this.Ships?.Count} Ships\n";
-        if (this.Ships == null)
-        {
-            return text;
-        }
-
-        foreach (var ship in this.Ships)
-        {
-            text += $"{ship.ToString()}\n";
-        }
-
-        return text;
-    }
-
     public object this[int quadrant, int moduleX, int moduleY]
     {
         get
@@ -45,6 +28,23 @@ public class GameField
             var coordinates = this.ChangeCoordinatesToArrayIndexes(quadrant, moduleY, moduleX);
             this.Field[coordinates[0], coordinates[1]] = value;
         }
+    }
+
+    public override string ToString()
+    {
+        this.Sort();
+        var text = $"Field with size {this.Field.GetLength(0)} has {this.Ships?.Count} Ships\n";
+        if (this.Ships == null)
+        {
+            return text;
+        }
+
+        foreach (var ship in this.Ships)
+        {
+            text += $"{ship.ToString()}\n";
+        }
+
+        return text;
     }
 
     public void GetView()
@@ -66,7 +66,7 @@ public class GameField
     public void AddShip(ShipBase ship, int quadrant, int moduleX, int moduleY, bool isHorizontal)
     {
         var coordinates = this.ChangeCoordinatesToArrayIndexes(quadrant, moduleY, moduleX);
-        if (!(this.CheckIfFit(ship.Size, coordinates, isHorizontal) 
+        if (!(this.CheckIfFit(ship.Size, coordinates, isHorizontal)
             && this.CheckIfEmpty(ship.Size, coordinates, isHorizontal)))
         {
             Console.WriteLine("Your ship doesn't fit");
@@ -111,7 +111,7 @@ public class GameField
         {
             for (int i = 0; i < shipSize; i++)
             {
-                if(this.Field[coordinates[0], coordinates[1] + i] != null)
+                if (this.Field[coordinates[0], coordinates[1] + i] != null)
                 {
                     return false;
                 }
@@ -211,7 +211,7 @@ public class GameField
             {
                 return 1;
             }
-            else if(firstDistance < secondDistance)
+            else if (firstDistance < secondDistance)
             {
                 return -1;
             }
@@ -224,7 +224,6 @@ public class GameField
 
     private double GetDistanceToCenter(ShipBase ship)
     {
-        var halfLength = this.Field.GetLength(0) / 2;
         if (ship.StartCoordinates[0] == ship.EndCoordinates[1])
         {
             return Math.Sqrt(Math.Pow(ship.StartCoordinates[1], 2) + Math.Pow(ship.EndCoordinates[1], 2));
