@@ -1,0 +1,16 @@
+﻿using SeaBattle.Interfaces;
+
+namespace SeaBattle.Ships;
+
+public class WarShip : ShipBase, IMilitary
+{
+    public WarShip(int size, int speed, int range)
+        : base(size, speed, range)
+    {
+    }
+
+    public void Shoot(int quadrant, int moduleX, int moduleY)
+    {
+        Console.WriteLine($"Shooting");
+    }
+}
