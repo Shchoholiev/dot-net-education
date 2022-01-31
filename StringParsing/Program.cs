@@ -1,6 +1,5 @@
 ﻿using StringParsing;
 using StringParsing.FileTypes;
-using System.Text.RegularExpressions;
 
 string text = @"Text:file.txt(6B);Some string content
                 Image:img.bmp(19MB);1920x1080

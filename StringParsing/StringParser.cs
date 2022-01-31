@@ -1,5 +1,5 @@
-﻿using StringParsing.FileTypes;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
+using StringParsing.FileTypes;
 
 namespace StringParsing
 {
@@ -53,6 +53,7 @@ namespace StringParsing
                         {
                             text += "Text files:\n";
                         }
+
                         break;
 
                     case "MovieFile":
@@ -60,13 +61,15 @@ namespace StringParsing
                         {
                             text += "Movies:\n";
                         }
+
                         break;
 
                     case "ImageFile":
                         if (!text.Contains("Images:"))
                         {
                             text += "Images:\n";
-                        }                        
+                        }
+
                         break;
 
                     default:
@@ -106,7 +109,7 @@ namespace StringParsing
                 default:
                     return new FileBase();
             }
-        } 
+        }
 
         private string[] GetFilesString(string text)
         {

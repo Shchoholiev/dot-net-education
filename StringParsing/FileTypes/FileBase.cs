@@ -8,9 +8,9 @@
 
         public FileBase(string name, string extension, string size)
         {
-            Name = name;
-            Extension = extension;
-            Size = size;
+            this.Name = name;
+            this.Extension = extension;
+            this.Size = size;
         }
 
         public string Name { get; set; }

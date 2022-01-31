@@ -11,8 +11,8 @@ namespace StringParsing.FileTypes
         public MovieFile(string name, string extension, string size, string resoluion, string length)
             : base(name, extension, size)
         {
-            Resolution = resoluion;
-            Length = length;
+            this.Resolution = resoluion;
+            this.Length = length;
         }
 
         public string Resolution { get; set; }
