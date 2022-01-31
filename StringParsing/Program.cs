@@ -10,5 +10,6 @@ string text = @"Text:file.txt(6B);Some string content
 
 var stringParser = new StringParser();
 var list = stringParser.GetFiles(text);
+var sorted = stringParser.SortFiles(list);
 
-Console.WriteLine(list);
+Console.WriteLine(stringParser.ListToString(sorted));
