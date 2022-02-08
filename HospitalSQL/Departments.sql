@@ -1,0 +1,7 @@
+CREATE TABLE dbo.[Departments](
+	CONSTRAINT PK_Department PRIMARY KEY (Id),
+
+	[Id] INT IDENTITY(1,1) NOT NULL,
+	[Name] NVARCHAR(100) NOT NULL,
+	[Specialization] NVARCHAR(100) NOT NULL,
+)
