@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NLayerArchitecture.BLL\NLayerArchitecture.BLL.csproj" />
-    <ProjectReference Include="..\NLayerArchitecture.Core\NLayerArchitecture.Core.csproj" />
   </ItemGroup>
 
 </Project>
