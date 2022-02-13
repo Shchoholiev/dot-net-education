@@ -11,5 +11,10 @@
         public int Age { get; set; }
 
         public string FavouriteSubject { get; set; }
+
+        public override string ToString()
+        {
+            return $"Id: {this.Id}, {Age} years old {Name} {Surname} have favourite subject: {FavouriteSubject} ";
+        }
     }
 }

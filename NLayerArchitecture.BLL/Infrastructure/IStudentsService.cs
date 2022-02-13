@@ -4,7 +4,7 @@ namespace NLayerArchitecture.BLL.Infrastructure
 {
     public interface IStudentsService
     {
-        void Add(Student student);
+        void Add(string name, string Surname, int age, string favouriteSubject);
 
         void Delete(int id);
 

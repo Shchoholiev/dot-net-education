@@ -13,8 +13,16 @@ namespace NLayerArchitecture.BLL.Services
             this._repository = repository;
         }
 
-        public void Add(Student student)
+        public void Add(string name, string Surname, int age, string favouriteSubject)
         {
+            var student = new Student
+            {
+                Name = name,
+                Surname = Surname,
+                Age = age,
+                FavouriteSubject = favouriteSubject
+            };
+
             this._repository.Add(student);
         }
 

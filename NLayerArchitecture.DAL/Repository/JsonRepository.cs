@@ -10,19 +10,36 @@ namespace NLayerArchitecture.DAL.Repository
         public JsonRepository(string filePath)
         {
             this._filePath = filePath;
+            if (!File.Exists(this._filePath))
+            {
+                using (File.Create(this._filePath)) { }
+            }
         }
 
         public void Add(Student student)
         {
-            var json = JsonSerializer.Serialize(student);
-            Save(json);
+            var students = this.GetStudents();
+            if (students.FirstOrDefault(s => s.Id == student.Id) == null)
+            {              
+                int lastId = 0;
+                var studentLastId = students.OrderByDescending(s => s.Id).FirstOrDefault();
+                if (studentLastId != null)
+                {
+                    lastId = studentLastId.Id;
+                }
+
+                student.Id = lastId + 1;
+
+                var json = JsonSerializer.Serialize(student);
+                Save(json);
+            }
         }
 
         public void Delete(int id)
         {
-            var student = this.GetStudent(id);
             var students = this.GetStudents();
-            students.Remove(student);
+            var student = students.FirstOrDefault(s => s.Id == id);
+            var result = students.Remove(student);
 
             this.Save(students);
         }
