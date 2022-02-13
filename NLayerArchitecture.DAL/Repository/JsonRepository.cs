@@ -1,4 +1,4 @@
-﻿using NLayerArchitecture.DAL.Entities;
+﻿using NLayerArchitecture.Core.Entities;
 using System.Text.Json;
 
 namespace NLayerArchitecture.DAL.Repository

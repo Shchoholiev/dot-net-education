@@ -1,8 +1,8 @@
 ﻿using NLayerArchitecture.Core.Entities;
 
-namespace NLayerArchitecture.DAL.Repository
+namespace NLayerArchitecture.BLL.Infrastructure
 {
-    public interface IRepository
+    public interface IStudentsService
     {
         void Add(Student student);
 

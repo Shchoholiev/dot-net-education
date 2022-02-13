@@ -1,4 +1,4 @@
-﻿namespace NLayerArchitecture.DAL.Entities
+﻿namespace NLayerArchitecture.Core.Entities
 {
     public class Student
     {

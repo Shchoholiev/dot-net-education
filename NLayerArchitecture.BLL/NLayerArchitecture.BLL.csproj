@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NLayerArchitecture.Core\NLayerArchitecture.Core.csproj" />
+    <ProjectReference Include="..\NLayerArchitecture.DAL\NLayerArchitecture.DAL.csproj" />
   </ItemGroup>
 
 </Project>
