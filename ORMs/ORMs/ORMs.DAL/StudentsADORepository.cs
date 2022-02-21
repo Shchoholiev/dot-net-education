@@ -15,15 +15,18 @@ namespace ORMs.DAL
 
         public void Add(Student student)
         {
-            var command = new SqlCommand($"INSERT INTO dbo.[Student] " +
-              $"VALUES {student.Name}, {student.Surname}, {student.Age}, {student.Dormitory?.Id}, " +
-              $"{student.RecordBook.Id}, {student.Department.Id}");
+            var insertRecordBook = new SqlCommand($"INSERT INTO dbo.[RecordBooks]" +
+                $"VALUES {student.RecordBook.AverageMark}");
 
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(this._connectionString))
             {
                 try
                 {
                     connection.Open();
+                    var recordBookId = insertRecordBook.ExecuteScalar;
+                    var command = new SqlCommand($"INSERT INTO dbo.[Students] " +
+                                  $"VALUES {student.Name}, {student.Surname}, {student.Age}, {student.Dormitory?.Id}, " +
+                                  $"{recordBookId}, {student.Department.Id}");
                     command.ExecuteNonQuery();
                 }                
                 catch (Exception e)
