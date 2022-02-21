@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using ORMs.BLL.Infrastructure;
 using ORMs.BLL.Services;
 using ORMs.Core.Entities;
 using ORMs.DAL;
-using ORMs.DAL.Repository;
+using ORMs.DAL.EF;
+using ORMs.DAL.IGenericRepository;
 
 namespace ORMs.BLL.DI
 {
@@ -14,8 +16,8 @@ namespace ORMs.BLL.DI
             //var connectionString = @"server=(LocalDb)\MSSQLLocalDB;database=Store;integrated security=True;
             //        MultipleActiveResultSets=True;App=EntityFramework;";
 
-            //services.AddDbContext<ApplicationContext>(options =>
-            //    options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(connectionString));
 
             services.AddTransient<IGenericRepository<Student>, StudentsADORepository>(provider => 
                                                                new StudentsADORepository(connectionString));

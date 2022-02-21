@@ -1,17 +1,17 @@
 ﻿using ORMs.Core.Entities;
 
-namespace ORMs.DAL.Repository
+namespace ORMs.DAL.IGenericRepository
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
+        Task Add(TEntity entity);
 
-        TEntity GetOne(int id);
+        Task<TEntity> GetOne(int id);
 
-        List<TEntity> GetAll();
+        Task<List<TEntity>> GetAll();
 
-        void Update(TEntity entity);
+        Task Update(TEntity entity);
 
-        void Delete(int id);
+        Task Delete(int id);
     }
 }

@@ -4,12 +4,12 @@ namespace ORMs.BLL.Infrastructure
 {
     public interface IStudentsService
     {
-        void Add(string name, string Surname, int age, int? dormitoryId, int averageMark, int departmentId);
+        Task Add(string name, string Surname, int age, int? dormitoryId, int averageMark, int departmentId);
 
-        void Delete(int id);
+        Task Delete(int id);
 
-        Student GetStudent(int id);
+        Task<Student> GetStudent(int id);
 
-        List<Student> GetStudents();
+        Task<List<Student>> GetStudents();
     }
 }

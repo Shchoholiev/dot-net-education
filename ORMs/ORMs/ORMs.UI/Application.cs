@@ -11,7 +11,7 @@ namespace ORMs.UI
             this._studentsService = studentsService;
         }
 
-        public void Run()
+        public async Task Run()
         {
             string input;
             do
@@ -30,19 +30,19 @@ namespace ORMs.UI
                     switch (n)
                     {
                         case 1:
-                            this.GetStudents();
+                            await this.GetStudents();
                             break;
 
                         case 2:
-                            this.GetStudent();
+                            await this.GetStudent();
                             break;
 
                         case 3:
-                            this.AddStudent();
+                            await this.AddStudent();
                             break;
 
                         case 4:
-                            this.Delete();
+                            await this.Delete();
                             break;
 
                         default:
@@ -53,9 +53,9 @@ namespace ORMs.UI
             } while (input != "q");
         }
 
-        private void GetStudents()
+        private async Task GetStudents()
         {
-            var students = this._studentsService.GetStudents();
+            var students = await this._studentsService.GetStudents();
 
             foreach (var student in students)
             {
@@ -63,13 +63,13 @@ namespace ORMs.UI
             }
         }
 
-        private void GetStudent()
+        private async Task GetStudent()
         {
             Console.WriteLine("Enter Id");
 
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                var student = this._studentsService.GetStudent(id);
+                var student = await this._studentsService.GetStudent(id);
                 Console.WriteLine(student);
             }
             else
@@ -78,7 +78,7 @@ namespace ORMs.UI
             }
         }
 
-        private void AddStudent()
+        private async Task AddStudent()
         {
             Console.WriteLine("Enter Name: ");
             var name = Console.ReadLine();
@@ -141,17 +141,17 @@ namespace ORMs.UI
                 }
             }
 
-            this._studentsService.Add(name, surname, age, dormitoryId, averageMark, departmentId);
+            await this._studentsService.Add(name, surname, age, dormitoryId, averageMark, departmentId);
             Console.WriteLine("Student Added!");
         }
 
-        private void Delete()
+        private async Task Delete()
         {
             Console.WriteLine("Enter Id");
 
             if (int.TryParse(Console.ReadLine(), out int id))
             {
-                this._studentsService.Delete(id);
+                await this._studentsService.Delete(id);
                 Console.WriteLine("Student Deleted!");
             }
             else

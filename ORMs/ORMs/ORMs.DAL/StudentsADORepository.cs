@@ -1,5 +1,5 @@
 ﻿using ORMs.Core.Entities;
-using ORMs.DAL.Repository;
+using ORMs.DAL.IGenericRepository;
 using System.Data.SqlClient;
 
 namespace ORMs.DAL
@@ -13,7 +13,7 @@ namespace ORMs.DAL
             _connectionString = connectionString;
         }
 
-        public void Add(Student student)
+        public async Task Add(Student student)
         {
             var insertRecordBook = new SqlCommand($"INSERT INTO dbo.[RecordBooks]" +
                 $"VALUES {student.RecordBook.AverageMark}");
@@ -23,11 +23,11 @@ namespace ORMs.DAL
                 try
                 {
                     connection.Open();
-                    var recordBookId = insertRecordBook.ExecuteScalar;
+                    var recordBookId = await insertRecordBook.ExecuteScalarAsync();
                     var command = new SqlCommand($"INSERT INTO dbo.[Students] " +
                                   $"VALUES {student.Name}, {student.Surname}, {student.Age}, {student.Dormitory?.Id}, " +
                                   $"{recordBookId}, {student.Department.Id}");
-                    command.ExecuteNonQuery();
+                    await command.ExecuteNonQueryAsync();
                 }                
                 catch (Exception e)
                 {
