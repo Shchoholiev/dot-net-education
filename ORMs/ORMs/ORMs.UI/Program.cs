@@ -6,7 +6,7 @@ namespace ORMs.UI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
             var services = new ServiceCollection();
             ConfigureServices(services);           
@@ -15,7 +15,7 @@ namespace ORMs.UI
                               .BuildServiceProvider()
                               .GetRequiredService<Application>();
 
-            app.Run();
+            await app.Run();
         }
 
         private static void ConfigureServices(IServiceCollection serviceCollection)

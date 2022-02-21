@@ -40,22 +40,22 @@ namespace ORMs.DAL
             }
         }
 
-        public void Delete(int id)
+        public Task Delete(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Student> GetAll()
+        public Task<List<Student>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Student GetOne(int id)
+        public Task<Student> GetOne(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Student student)
+        public Task Update(Student entity)
         {
             throw new NotImplementedException();
         }
