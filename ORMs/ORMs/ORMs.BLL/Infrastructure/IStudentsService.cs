@@ -4,7 +4,7 @@ namespace ORMs.BLL.Infrastructure
 {
     public interface IStudentsService
     {
-        void Add(string name, string Surname, int age, int? dormitoryId, int recordBookId, int departmentId);
+        void Add(string name, string Surname, int age, int? dormitoryId, int averageMark, int departmentId);
 
         void Delete(int id);
 
