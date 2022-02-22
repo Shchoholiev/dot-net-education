@@ -27,22 +27,28 @@ namespace ORMs.BLL.Services
                 Department = new Department { Id = departmentId }
             };
 
+            this._repository.Attach(student);
             await this._repository.Add(student);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            await this._repository.Delete(id);
         }
 
-        public Task<Student> GetStudent(int id)
+        public async Task Update(Student student)
         {
-            throw new NotImplementedException();
+            await this._repository.Update(student);
         }
 
-        public Task<List<Student>> GetStudents()
+        public async Task<Student> GetStudent(int id)
         {
-            throw new NotImplementedException();
+            return await this._repository.GetOne(id, s => s.RecordBook, s => s.Department, s => s.Dormitory);
+        }
+
+        public async Task<List<Student>> GetStudents()
+        {
+            return await this._repository.GetAll(s => s.RecordBook, s => s.Department, s => s.Dormitory);
         }
     }
 }

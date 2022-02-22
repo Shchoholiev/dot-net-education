@@ -1,6 +1,7 @@
 ﻿using ORMs.Core.Entities;
 using ORMs.DAL.IGenericRepository;
 using System.Data.SqlClient;
+using System.Linq.Expressions;
 
 namespace ORMs.DAL
 {
@@ -45,17 +46,37 @@ namespace ORMs.DAL
             throw new NotImplementedException();
         }
 
-        public Task<List<Student>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Student> GetOne(int id)
         {
             throw new NotImplementedException();
         }
 
+        public Task<Student> GetOne(int id, params Expression<Func<Student, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Student>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<Student>> GetAll(params Expression<Func<Student, object>>[] includeProperties)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task Update(Student entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Attach(object entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Delete(int id, params Expression<Func<Student, object>>[] includeProperties)
         {
             throw new NotImplementedException();
         }

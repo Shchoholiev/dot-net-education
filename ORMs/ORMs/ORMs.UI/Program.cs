@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ORMs.BLL.DI;
+using ORMs.DAL.EF;
 
 namespace ORMs.UI
 {
@@ -8,12 +10,18 @@ namespace ORMs.UI
     {
         public async static Task Main(string[] args)
         {
+            
+
             var services = new ServiceCollection();
             ConfigureServices(services);           
 
             Application app = services
                               .BuildServiceProvider()
                               .GetRequiredService<Application>();
+
+            //
+            var context = services.BuildServiceProvider().GetRequiredService<ApplicationContext>();
+            DbInitializer.Initialize(context);
 
             await app.Run();
         }
@@ -23,14 +31,14 @@ namespace ORMs.UI
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                 .AddJsonFile("appsettings.json", false)
-                .Build();            
+                .Build();
 
-            serviceCollection.AddSingleton<IConfigurationRoot>(configuration);
-            serviceCollection.AddTransient<Application>();
+            serviceCollection.AddSingleton<IConfigurationRoot>(configuration);            
 
             var connectionString = configuration.GetConnectionString("DatabaseConnection");
-
             serviceCollection.ConfigureDatabase(connectionString);
+
+            serviceCollection.AddTransient<Application>();
         }
     }
 }

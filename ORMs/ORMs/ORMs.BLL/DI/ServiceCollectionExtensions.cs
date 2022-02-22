@@ -13,16 +13,17 @@ namespace ORMs.BLL.DI
     {
         public static IServiceCollection ConfigureDatabase(this IServiceCollection services, string connectionString)
         {
-            //var connectionString = @"server=(LocalDb)\MSSQLLocalDB;database=Store;integrated security=True;
-            //        MultipleActiveResultSets=True;App=EntityFramework;";
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddTransient<IGenericRepository<Student>, StudentsADORepository>(provider => 
-                                                               new StudentsADORepository(connectionString));
-            services.AddTransient<IStudentsService, StudentsService>();
+            //services.AddTransient<IGenericRepository<Student>, StudentsADORepository>(provider => 
+            //                                                   new StudentsADORepository(connectionString));
 
+            services.AddTransient<IGenericRepository<Student>, GenericRepository<Student>>();
+            //services.AddTransient<IGenericRepository<RecordBook>, GenericRepository<RecordBook>>();
+
+            services.AddTransient<IStudentsService, StudentsService>();
             
             return services;
         }

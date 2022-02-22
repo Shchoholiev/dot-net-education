@@ -8,6 +8,8 @@ namespace ORMs.BLL.Infrastructure
 
         Task Delete(int id);
 
+        Task Update(Student student);
+
         Task<Student> GetStudent(int id);
 
         Task<List<Student>> GetStudents();
