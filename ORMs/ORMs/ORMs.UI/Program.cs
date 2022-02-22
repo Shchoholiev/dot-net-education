@@ -19,7 +19,6 @@ namespace ORMs.UI
                               .BuildServiceProvider()
                               .GetRequiredService<Application>();
 
-            //
             var context = services.BuildServiceProvider().GetRequiredService<ApplicationContext>();
             DbInitializer.Initialize(context);
 
@@ -32,7 +31,6 @@ namespace ORMs.UI
                 .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
                 .AddJsonFile("appsettings.json", false)
                 .Build();
-
             serviceCollection.AddSingleton<IConfigurationRoot>(configuration);            
 
             var connectionString = configuration.GetConnectionString("DatabaseConnection");
