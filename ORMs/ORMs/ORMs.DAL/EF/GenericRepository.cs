@@ -16,15 +16,15 @@ namespace ORMs.DAL.EF
             this._table = _db.Set<TEntity>();
         }
 
-        public async Task Add(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await this._table.AddAsync(entity);
             await this.Save();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var entity = await this.GetOne(id);
+            var entity = await this.GetOneAsync(id);
             if (entity != null)
             {
                 this._table.Remove(entity);
@@ -32,27 +32,27 @@ namespace ORMs.DAL.EF
             }
         }
 
-        public async Task<TEntity> GetOne(int id)
+        public async Task<TEntity> GetOneAsync(int id)
         {
             return await this._table.FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public async Task<TEntity> GetOne(int id, params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<TEntity> GetOneAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await this.Include(includeProperties).FirstOrDefaultAsync(e => e.Id == id);
         }
 
-        public Task<List<TEntity>> GetAll()
+        public Task<List<TEntity>> GetAllAsync()
         {
             return this._table.ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties)
+        public async Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             return await this.Include(includeProperties).ToListAsync();
         }
 
-        public async Task Update(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             this._table.Update(entity);
             await this.Save();

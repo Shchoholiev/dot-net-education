@@ -10,8 +10,6 @@
 
         public Dormitory? Dormitory { get; set; }
 
-        //public int RecordBookId { get; set; }
-
         public RecordBook RecordBook { get; set; }
 
         public Department Department { get; set; }

@@ -17,11 +17,13 @@ namespace ORMs.BLL.DI
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            //services.AddTransient<IGenericRepository<Student>, StudentsADORepository>(provider => 
+            //services.AddTransient<IGenericRepository<Student>, StudentsADORepository>(provider =>
             //                                                   new StudentsADORepository(connectionString));
 
-            services.AddTransient<IGenericRepository<Student>, GenericRepository<Student>>();
-            //services.AddTransient<IGenericRepository<RecordBook>, GenericRepository<RecordBook>>();
+            services.AddTransient<IGenericRepository<Student>, StudentsDapperRepository>(provider =>
+                                                               new StudentsDapperRepository(connectionString));
+
+            //services.AddTransient<IGenericRepository<Student>, GenericRepository<Student>>();
 
             services.AddTransient<IStudentsService, StudentsService>();
             

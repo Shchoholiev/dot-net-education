@@ -5,20 +5,20 @@ namespace ORMs.DAL.IGenericRepository
 {
     public interface IGenericRepository<TEntity> where TEntity : EntityBase
     {
-        Task Add(TEntity entity);
+        Task AddAsync(TEntity entity);
 
-        Task<TEntity> GetOne(int id);
+        Task<TEntity> GetOneAsync(int id);
 
         void Attach(object entity);
 
-        Task<TEntity> GetOne(int id, params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<TEntity> GetOneAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task<List<TEntity>> GetAll();
+        Task<List<TEntity>> GetAllAsync();
 
-        Task<List<TEntity>> GetAll(params Expression<Func<TEntity, object>>[] includeProperties);
+        Task<List<TEntity>> GetAllAsync(params Expression<Func<TEntity, object>>[] includeProperties);
 
-        Task Update(TEntity entity);
+        Task UpdateAsync(TEntity entity);
 
-        Task Delete(int id);
+        Task DeleteAsync(int id);
     }
 }
