@@ -13,10 +13,10 @@ namespace ORMs.BLL.Services
             this._repository = repository;
         }
 
-        public async Task Add(string name, string Surname, int age, int? dormitoryId, int averageMark, int departmentId)
+        public async Task Add(string name, string Surname, int age, int dormitoryId, int averageMark, int departmentId)
         {
-            var dormitory = (dormitoryId != null) ? new Dormitory { Id = (int) dormitoryId } : null;
-            
+            var dormitory = (dormitoryId != 0) ? new Dormitory { Id = dormitoryId } : null;
+
             var student = new Student
             {
                 Name = name,
@@ -36,8 +36,19 @@ namespace ORMs.BLL.Services
             await this._repository.Delete(id);
         }
 
-        public async Task Update(Student student)
+        public async Task Update(int id, string name, string Surname, int age, int dormitoryId, int averageMark, int departmentId)
         {
+            var student = await this._repository.GetOne(id, s => s.RecordBook, s => s.Department, s => s.Dormitory);
+
+            var dormitory = (dormitoryId != 0) ? new Dormitory { Id = dormitoryId } : null;
+            student.Name = name;
+            student.Surname = Surname;
+            student.Age = age;
+            student.RecordBook.AverageMark = averageMark;
+            student.Dormitory = dormitory;
+            student.Department = new Department { Id = departmentId };
+            this._repository.Attach(student);
+
             await this._repository.Update(student);
         }
 

@@ -20,7 +20,7 @@
         {
             var student = $"{this.Name} {this.Surname} {this.Age} years old, studies at the department {this.Department.Name}," +
                           $" has average mark {this.RecordBook.AverageMark}";
-            student += (this.Dormitory != null) ? $" and lives in a dormitory at {this.Dormitory.Address}" : "";
+            student += (this.Dormitory != null) ? $" and lives in the dormitory at {this.Dormitory.Address}" : "";
             return student;
         }
     }

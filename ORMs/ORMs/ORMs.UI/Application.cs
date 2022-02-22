@@ -21,6 +21,7 @@ namespace ORMs.UI
                 Console.WriteLine("2 - Get student by Id");
                 Console.WriteLine("3 - Add Student");
                 Console.WriteLine("4 - Delete Student");
+                Console.WriteLine("5 - Update Student");
                 Console.WriteLine("q - quit application");
                 Console.WriteLine("-----------------------------");
 
@@ -42,7 +43,11 @@ namespace ORMs.UI
                             break;
 
                         case 4:
-                            await this.Delete();
+                            await this.DeleteStudent();
+                            break;
+
+                        case 5:
+                            await this.UpdateStudent();
                             break;
 
                         default:
@@ -102,8 +107,14 @@ namespace ORMs.UI
             int dormitoryId;
             while (true)
             {
-                Console.WriteLine("Enter Dormitory Id: ");
-                if (int.TryParse(Console.ReadLine(), out dormitoryId))
+                Console.WriteLine("Enter Dormitory Id (Press Enter if student doesn't live in dormitory): ");
+                var dormitoryInput = Console.ReadLine();
+                if (dormitoryInput == "")
+                {
+                    dormitoryId = 0;
+                    break;
+                }
+                if (int.TryParse(dormitoryInput, out dormitoryId))
                 {
                     break;
                 }
@@ -145,7 +156,7 @@ namespace ORMs.UI
             Console.WriteLine("Student Added!");
         }
 
-        private async Task Delete()
+        private async Task DeleteStudent()
         {
             Console.WriteLine("Enter Id");
 
@@ -158,6 +169,93 @@ namespace ORMs.UI
             {
                 Console.WriteLine("Enter valid Id!");
             }
+        }
+
+        private async Task UpdateStudent()
+        {
+            int id;
+            while (true)
+            {
+                Console.WriteLine("Enter Id: ");
+                if (int.TryParse(Console.ReadLine(), out id))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid Id!");
+                }
+            }
+
+            Console.WriteLine("Enter Name: ");
+            var name = Console.ReadLine();
+            Console.WriteLine("Enter Surname: ");
+            var surname = Console.ReadLine();
+
+            int age;
+            while (true)
+            {
+                Console.WriteLine("Enter Age: ");
+                if (int.TryParse(Console.ReadLine(), out age))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid age!");
+                }
+            }
+
+            int dormitoryId;
+            while (true)
+            {
+                Console.WriteLine("Enter Dormitory Id (Press Enter if student doesn't live in dormitory): ");
+                var dormitoryInput = Console.ReadLine();
+                if (dormitoryInput == "")
+                {
+                    dormitoryId = 0;
+                    break;
+                }
+                if (int.TryParse(dormitoryInput, out dormitoryId))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid Id!");
+                }
+            }
+
+            int averageMark;
+            while (true)
+            {
+                Console.WriteLine("Enter Average Mark (0 - 100): ");
+                if (int.TryParse(Console.ReadLine(), out averageMark) && averageMark >= 0 && averageMark <= 100)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid Average Mark!");
+                }
+            }
+
+            int departmentId;
+            while (true)
+            {
+                Console.WriteLine("Enter DepartmentId");
+                if (int.TryParse(Console.ReadLine(), out departmentId))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter valid Id!");
+                }
+            }
+
+            await this._studentsService.Update(id, name, surname, age, dormitoryId, averageMark, departmentId);
+            Console.WriteLine("Student Updated!");
         }
     }
 }
